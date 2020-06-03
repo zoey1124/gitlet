@@ -1,0 +1,54 @@
+Gitlet Design Document
+----------------------
+
+Classes and Data Structures
+---------------------------
+**** Commit ****
+The class represents a commit.
+
+** Fields **
+1. map: the hashMap that maps from filenames to blobs.
+2. timestamp: the time that this commit is created
+3. branch: which branch this commit is on. Can be null if this commit is not belong to any branch
+4. message: the commit message that typed by the users
+5. commitID: the SHA-1 code for this commit. CommitID is defined uniquely by each commit's property.
+6. shortID: the first 8 digits for the commitID. Used for checkout method.
+
+**** Blob ****
+Represent the file.
+** Fields **
+1. name: the filename
+2. content: read this file's content as string
+3. blobID: the SHA-1 string code for the content of this blob
+
+**** Gitlet ****
+Represent a gitlet tree.
+** Fields **
+1. currCommit: a pointer to the head (or current commit)
+2. gitlet: the .gitlet hidden file (can be used for the file path)
+
+Algorithms
+----------
+NOTE: serialization is an important part in this project. The question is which folder to put the serialized file in.
+      The directory that store the serialized object matters
+NOTE: please use SHA-1 code to compare the content of each blob. Other wise the runtime will not be linear.
+
+**** Gitlet ****
+1. deserializeHead(): return the HEAD commit (current commit).
+2. deserializeCommit: return a commit object. The commit object must in the commit directory
+3. getUntrackFile(): return an arrayList of all the file names that is untracked now in the current commit
+
+**** Commit ****
+1. serializeCommit():
+
+
+Persistence
+-----------
+Folders in .gitlet hidden file:
+1. commit: store each commit as each separate file
+2. branch:
+3. addStaging: store all the blobs that will be added in the next commit
+4. removeStaging: store all the blobs that will be removed in the next commit
+
+File in .gitlet hidden file:
+1. HEAD: store the current commit
